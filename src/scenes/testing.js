@@ -21,7 +21,7 @@ class testing extends Phaser.Scene
         //this.INSERTFILENAME=this.add.tileSprite(0, 0, 640, 480, 'INSERTFILENAME').setOrigin(0, 0);
 
         //Configuration for the song. Place in create function
-        let config=
+        let songconfig=
         {
             mute: false,
             volume: 1,
@@ -33,7 +33,7 @@ class testing extends Phaser.Scene
         }
 
         //Declaring the music. Place in create function
-        var music=this.sound.add('song', config);
+        var music=this.sound.add('song', songconfig);
 
         //Play song. Place at start of game
         music.play();
