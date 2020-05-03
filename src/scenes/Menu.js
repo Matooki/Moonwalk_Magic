@@ -4,7 +4,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('billie_jean', './assets/billie_jean.mp3');
+        this.load.audio('billie_jean', './assets/billie_jean.wav');
+        this.load.spritesheet('menu', './assets/Menu.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 9});
     }
 
     create() {
@@ -27,20 +28,36 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 64;
 
-        this.add.text(centerX, centerY- textSpacer, 'Moonwalk Magic', menuConfig).setOrigin(0.5);
+        //create menu sprite
+        const menu = this.add.sprite(0, 0, 'menu', 0).setOrigin(0, 0);
+
+       
         this.add.text(centerX, centerY + 0 * textSpacer, 'Use Arrow Keys to move', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 1 * textSpacer, 'Collect Music Notes', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 2 * textSpacer, 'Avoid Copyright Strikes!', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 3 * textSpacer, 'Press Down Arrow to Start', menuConfig).setOrigin(0.5);
 
-
-
         this.sound.play('billie_jean');
         cursors = this.input.keyboard.createCursorKeys();
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
+
+        //menu scene animation
+        this.anims.create({
+            key: 'menu',
+            frames: this.anims.generateFrameNumbers('menu', {start: 0, end: 9, first: 0}),
+            frameRate: 10,
+            repeat: -1,
+        });
+        menu.anims.play('menu');
     }
 
    update() {
+    
+    
+    
+   
+
+   
         if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
             this.scene.start('playScene');
         }
