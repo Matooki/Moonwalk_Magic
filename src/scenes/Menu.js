@@ -4,7 +4,7 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('billie_jean', './assets/billie_jean.mp3');
+        this.load.audio('song', './assets/billie_jean.wav');
     }
 
     create() {
@@ -33,9 +33,6 @@ class Menu extends Phaser.Scene {
         this.add.text(centerX, centerY + 2 * textSpacer, 'Avoid Copyright Strikes!', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 3 * textSpacer, 'Press Down Arrow to Start', menuConfig).setOrigin(0.5);
 
-
-
-        this.sound.play('billie_jean');
         cursors = this.input.keyboard.createCursorKeys();
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
     }

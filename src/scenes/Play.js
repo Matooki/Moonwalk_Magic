@@ -15,10 +15,44 @@ class Play extends Phaser.Scene {
         this.starfield = this.add.tileSprite(0, 0, 640, 480,'starfield').setOrigin(0, 0);
 
         //add player
-        this.player = new Player(this, game.config.width/2 - 8, 431, 'rocket').setScale(0.5, 0.5).setOrigin(0,0);
+        this.player = new Player(this, 640, game.config.height/2, 'rocket').setScale(0.5, 0.5).setOrigin(0,0);
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
+
+        let songconfig=
+        {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        //Declaring the music. Place in create function
+        var music=this.sound.add('song', songconfig);
+        this.musicPlay=false;
+
+        this.gameOver=false;
+
+        //score display
+        let scoreConfig=
+        {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding:
+            {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLeft=this.add.text(69, 54, this.player.distance, scoreConfig);
 
         //obstacle speed
         this.obstacleSpeed = 100;
@@ -50,8 +84,15 @@ class Play extends Phaser.Scene {
         this.starfield.tilePositionY -= 2;
 
         //player movement
-       this.player.update();
-    
+        this.player.update();
+
+        //if(!this.musicPlay&&!this.gameOver)
+        //{
+            //music.play();
+            //this.musicPlay=true;
+        //}
+
+        this.scoreLeft.text=this.player.distance;
     }
 }
 
