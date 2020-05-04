@@ -55,7 +55,8 @@ class Play extends Phaser.Scene {
 
         //Declaring the music. Place in create function
         var music=this.sound.add('billie_jean', songconfig);
-        this.musicPlay=false;
+        music.stop();
+        music.play();
 
         this.gameOver=false;
 
@@ -142,12 +143,6 @@ class Play extends Phaser.Scene {
             this.scoreLeft.text=this.player.distance;
         }
 
-        //if(!this.musicPlay&&!this.gameOver)
-        //{
-            //music.play();
-            //this.musicPlay=true;
-        //}
-
         //check collisions
         if(this.checkCollision(this.player, this.ob1))
         {
@@ -181,29 +176,13 @@ class Play extends Phaser.Scene {
         }
     }
 
-    //checkCollision(player, obstacle)
-    //{
-        //simple AABB checking
-        //if(player.x>obstacle.x+obstacle.width&&
-            //player.x+player.width<obstacle.x&&
-            //obstacle.y>player.y-player.height&&
-            //obstacle.y<player.y+player.height)
-        //{
-            //return true;
-        //}
-        //else
-        //{
-            //return false;
-        //}
-    //}
-
     checkCollision(player, obstacle)
     {
         //simple AABB checking
         if(player.x<obstacle.x+obstacle.width&&
             player.x+player.width>obstacle.x&&
-            obstacle.y<player.y+20&&
-            obstacle.y>player.y-20)
+            obstacle.y+obstacle.height>player.y&&
+            obstacle.y<player.y+100)
         {
             return true;
         }
