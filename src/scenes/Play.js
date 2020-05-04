@@ -19,6 +19,7 @@ class Play extends Phaser.Scene {
 
         //speed of game variable
         let shield = 1;
+       
         //const backstage = this.add.sprite(0, 0, 'backstage', 0).setOrigin(0, 0);
         //background tile sprite
         this.crowd4 = this.add.tileSprite(0, 0, 640, 480, 'crowd4').setOrigin(0, 0);
@@ -154,6 +155,7 @@ class Play extends Phaser.Scene {
             this.ob5.update();
             this.scoreLeft.text=this.player.distance;
         }
+        
 
         //if(!this.musicPlay&&!this.gameOver)
         //{
