@@ -1,26 +1,19 @@
-class Obstacles extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, velocity) {
-        super(scene, 0, Phaser.Math.Between(0, game.config.height), 'spaceship');
+class Obstacles extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture, frame) {
+        super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
-        scene.physics.add.existing(this);
-        this.setVelocityX(velocity);
-        this.setImmovable();
-        this.newObstacles = true;
-        this.scene = scene;
-        this.velocity = velocity;
     }
 
     update() {
-        super.update();
+        //move spaceship left
+        this.x+=2;
 
-        if(this.newObstacles && this.x > centerX) {
-            this.newObstacles = false;
-            this.scene.addObstacles(this.parent, this.velocity);
-        }
-
-        if(this.x-this.width>game.config.width) {
-            this.destroy();
+        //wraparound from left to right edge
+        if(this.x>=game.config.width+this.width)
+        {
+            this.x=0;
+            this.y=Phaser.Math.Between(0, game.config.height);
         }
     }
 }
