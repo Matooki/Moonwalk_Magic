@@ -1,6 +1,6 @@
 class Obstacles extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, velocity) {
-        super(scene, game.config.width - Math.floor(Math.random() * (obstacleWidth * 2)), Phaser.Math.Between(0, 0 + obstacleHeight/2), 'spaceship');
+        super(scene, 0, Phaser.Math.Between(0, game.config.height), 'spaceship');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -14,12 +14,12 @@ class Obstacles extends Phaser.Physics.Arcade.Sprite {
     update() {
         super.update();
 
-        if(this.newObstacles && this.x < centerX) {
+        if(this.newObstacles && this.x > centerX) {
             this.newObstacles = false;
-            this.scene.addObstacle(this.parent, this.velocity);
+            this.scene.addObstacles(this.parent, this.velocity);
         }
 
-        if(this.x < -this.width) {
+        if(this.x-this.width>game.config.width) {
             this.destroy();
         }
     }

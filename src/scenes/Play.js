@@ -35,6 +35,40 @@ class Play extends Phaser.Scene {
         // movement
         cursors = this.input.keyboard.createCursorKeys();
 
+        let songconfig=
+        {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        //Declaring the music. Place in create function
+        var music=this.sound.add('billie_jean', songconfig);
+        this.musicPlay=false;
+
+        this.gameOver=false;
+
+        //score display
+        let scoreConfig=
+        {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding:
+            {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLeft=this.add.text(69, 54, this.player.distance, scoreConfig);
+
         //obstacle speed
         this.obstacleSpeed = 100;
         this.obstacleSpeedMax = 500;
@@ -74,9 +108,9 @@ class Play extends Phaser.Scene {
 
     
     
-        addObstacles() {
-            let obstacle = new Obstacles(this, this.obstacleSpeed);
-            this.obstacleGroup.add(obstacle);
+    addObstacles() {
+        let obstacle = new Obstacles(this, this.obstacleSpeed);
+        this.obstacleGroup.add(obstacle);
  
     }
 
@@ -97,8 +131,39 @@ class Play extends Phaser.Scene {
         
 
         //player movement
-       this.player.update();
-    
+        if(!this.gameOver)
+        {
+            this.player.update();
+            this.scoreLeft.text=this.player.distance;
+        }
+
+        //if(!this.musicPlay&&!this.gameOver)
+        //{
+            //music.play();
+            //this.musicPlay=true;
+        //}
+
+        //check collisions
+        if(this.checkCollision(this.player, this.obstacleGroup))
+        {
+            this.gameOver=true;
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '(F)ire to Restart or <- for Menu', scoreConfig).setOrigin(0, 5);
+        }
+    }
+
+    checkCollision(player, obstacle)
+    {
+        //simple AABB checking
+        if(player.x>obstacle.x+obstacle.width&&
+            player.x+player.width<obstacle.x)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
