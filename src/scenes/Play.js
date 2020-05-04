@@ -42,22 +42,6 @@ class Play extends Phaser.Scene {
         // movement
         cursors = this.input.keyboard.createCursorKeys();
 
-        let songconfig=
-        {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }
-
-        //Declaring the music. Place in create function
-        var music=this.sound.add('billie_jean', songconfig);
-        music.stop();
-        music.play();
-
         this.gameOver=false;
 
         //score display
