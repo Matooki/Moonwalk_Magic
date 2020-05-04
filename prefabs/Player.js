@@ -8,11 +8,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(0.5);
         this.setCollideWorldBounds(true);
         this.distance = 0;
-<<<<<<< HEAD
-=======
-        this.movement = 200;
-        this.copyright = false;
->>>>>>> 96a4892cfd2c9041c173f306b800e5d176ef55c0
     }
     
     update() {
@@ -20,16 +15,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     
     //movement
     if(!this.copyright && cursors.up.isDown) {
-        this.body.setVelocityY = this.movement;
+       this.y-=2;
     }
     else if(!this.copyright && cursors.down.isDown) {
-        this.body.setVelocityY -= this.movement;
+        this.y+=2;
     }
     else if(!this.copyright && cursors.left.isDown) {
-        this.body.setVelocityX -= this.movement;
+        this.x-=2;
     }
     else if(!this.copyright && cursors.right.isDown) {
-        this.body.setVelocityX = this.movement;
+        this.x+=2;
     }
 
     }
