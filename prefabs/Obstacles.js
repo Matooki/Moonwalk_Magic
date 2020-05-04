@@ -10,10 +10,12 @@ class Obstacles extends Phaser.GameObjects.Sprite {
         this.x+=2;
 
         //wraparound from left to right edge
-        if(this.x>=game.config.width+this.width)
+        if(this.x>=game.config.width+this.width + (Math.random() * (200-100) + 100))
         {
-            this.x=0;
-            this.y=Phaser.Math.Between(0, game.config.height);
+            this.x= -50;
+            let yc =Phaser.Math.Between(123, 360);
+            this.y = yc;
+            console.log(yc);
         }
     }
 }

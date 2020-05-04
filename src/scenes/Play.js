@@ -5,6 +5,7 @@ class Play extends Phaser.Scene {
 
     preload () {
         //place holder images
+        this.load.spritesheet('copyright', './assets/copyright.png', {frameWidth: 147, frameHeight: 110, startFrame: 0, endFrame: 7});
         this.load.spritesheet('backstage', './assets/backstage.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 11});
         this.load.spritesheet('moonwalk', './assets/moonwalk.png', {frameWidth: 300, frameHeight: 544, startFrame: 0, endFrame: 9});
         this.load.image('crowd', './assets/Crowd.png');
@@ -33,11 +34,11 @@ class Play extends Phaser.Scene {
         this.player = new Player(this, game.config.width/2 - 8, 431, 'moonwalk').setScale(0.3, 0.3).setOrigin(0,0);
 
         //Add Obstacles
-        this.ob1=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob2=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob3=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob4=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob5=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob1=new Obstacles(this, -100, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
+        this.ob2=new Obstacles(this, -120, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
+        this.ob3=new Obstacles(this, -130, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
+        this.ob4=new Obstacles(this, -160, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
+        this.ob5=new Obstacles(this, -200, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
@@ -99,7 +100,19 @@ class Play extends Phaser.Scene {
             repeat: -1,
         }); 
 
+        this.anims.create({
+            key: 'copyright',
+            frames: this.anims.generateFrameNumbers('copyright', {start: 0, end: 7, first: 0}),
+            frameRate: 15,
+            repeat: -1,
+        }); 
+
         //play those anims
+        this.ob1.anims.play('copyright');
+        this.ob2.anims.play('copyright');
+        this.ob3.anims.play('copyright');
+        this.ob4.anims.play('copyright');
+        this.ob5.anims.play('copyright');
         this.player.anims.play('moonwalk');
         this.backstage.anims.play('shuffle');
         this.backstage2.anims.play('shuffle');
