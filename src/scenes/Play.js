@@ -12,7 +12,6 @@ class Play extends Phaser.Scene {
         this.load.image('crowd2', './assets/crowd2.png');
         this.load.image('crowd3', './assets/crowd3.png');
         this.load.image('crowd4', './assets/crowd4.png');
-        this.load.image('crowd4', './assets/spaceship.png');
     }
 
     create() {
@@ -44,21 +43,6 @@ class Play extends Phaser.Scene {
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
-
-        let songconfig=
-        {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }
-
-        //Declaring the music. Place in create function
-        var music=this.sound.add('billie_jean', songconfig);
-        this.musicPlay=false;
 
         this.gameOver=false;
 
@@ -158,12 +142,6 @@ class Play extends Phaser.Scene {
         }
         
 
-        //if(!this.musicPlay&&!this.gameOver)
-        //{
-            //music.play();
-            //this.musicPlay=true;
-        //}
-
         //check collisions
         if(this.checkCollision(this.player, this.ob1))
         {
@@ -196,22 +174,6 @@ class Play extends Phaser.Scene {
        //     this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
        // }
     }
-
-    //checkCollision(player, obstacle)
-    //{
-        //simple AABB checking
-        //if(player.x>obstacle.x+obstacle.width&&
-            //player.x+player.width<obstacle.x&&
-            //obstacle.y>player.y-player.height&&
-            //obstacle.y<player.y+player.height)
-        //{
-            //return true;
-        //}
-        //else
-        //{
-            //return false;
-        //}
-    //}
 
     checkCollision(player, obstacle)
     {

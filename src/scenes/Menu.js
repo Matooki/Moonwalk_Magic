@@ -49,6 +49,21 @@ class Menu extends Phaser.Scene {
             repeat: -1,
         });
         menu.anims.play('menu');
+
+        let songconfig=
+        {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        //Declaring the music. Place in create function
+        var music=this.sound.add('billie_jean', songconfig);
+        music.stop();
+        music.play();
     }
 
    update() {
