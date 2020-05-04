@@ -6,8 +6,8 @@ class Play extends Phaser.Scene {
     preload () {
         //place holder images
         this.load.spritesheet('copyright', './assets/copyright.png', {frameWidth: 147, frameHeight: 110, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('backstage', './assets/backstage.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('moonwalk', './assets/moonwalk.png', {frameWidth: 300, frameHeight: 544, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('backstage', './assets/backstage.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 10});
+        this.load.spritesheet('moonwalk', './assets/moonwalk.png', {frameWidth: 226, frameHeight: 432, startFrame: 0, endFrame: 9});
         this.load.image('crowd', './assets/Crowd.png');
         this.load.image('crowd2', './assets/crowd2.png');
         this.load.image('crowd3', './assets/crowd3.png');
@@ -33,13 +33,14 @@ class Play extends Phaser.Scene {
 
         //add player
         this.player = new Player(this, game.config.width/2 - 8, 431, 'moonwalk').setScale(0.3, 0.3).setOrigin(0,0);
+        
 
         //Add Obstacles
-        this.ob1=new Obstacles(this, -100, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
-        this.ob2=new Obstacles(this, -120, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
-        this.ob3=new Obstacles(this, -130, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
-        this.ob4=new Obstacles(this, -160, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
-        this.ob5=new Obstacles(this, -200, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0);
+        this.ob1=new Obstacles(this, -100, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0).setScale(0.75, 0.75);
+        this.ob2=new Obstacles(this, -120, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0).setScale(0.75, 0.75);
+        this.ob3=new Obstacles(this, -130, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0).setScale(0.75, 0.75);
+        //this.ob4=new Obstacles(this, -160, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0).setScale(0.75, 0.75);
+       // this.ob5=new Obstacles(this, -200, Phaser.Math.Between(116, 360), 'copyright', 0).setOrigin(0,0).setScale(0.75, 0.75);
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
@@ -89,7 +90,7 @@ class Play extends Phaser.Scene {
         //Create anims for floor and player
         this.anims.create({
             key: 'shuffle',
-            frames: this.anims.generateFrameNumbers('backstage', {start: 0, end: 11, first: 0}),
+            frames: this.anims.generateFrameNumbers('backstage', {start: 0, end: 10, first: 0}),
             frameRate: 12,
             repeat: -1,
         }); 
@@ -112,8 +113,8 @@ class Play extends Phaser.Scene {
         this.ob1.anims.play('copyright');
         this.ob2.anims.play('copyright');
         this.ob3.anims.play('copyright');
-        this.ob4.anims.play('copyright');
-        this.ob5.anims.play('copyright');
+        //this.ob4.anims.play('copyright');
+        //this.ob5.anims.play('copyright');
         this.player.anims.play('moonwalk');
         this.backstage.anims.play('shuffle');
         this.backstage2.anims.play('shuffle');
@@ -151,8 +152,8 @@ class Play extends Phaser.Scene {
             this.ob1.update();
             this.ob2.update();
             this.ob3.update();
-            this.ob4.update();
-            this.ob5.update();
+           // this.ob4.update();
+           // this.ob5.update();
             this.scoreLeft.text=this.player.distance;
         }
         
@@ -182,18 +183,18 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
             this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
         }
-        if(this.checkCollision(this.player, this.ob4))
-        {
-            this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
-        }
-        if(this.checkCollision(this.player, this.ob5))
-        {
-            this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
-        }
+       // if(this.checkCollision(this.player, this.ob4))
+       // {
+       //     this.gameOver=true;
+       //     this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+       //     this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
+       // }
+      //  if(this.checkCollision(this.player, this.ob5))
+       // {
+       //     this.gameOver=true;
+       //     this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+       //     this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
+       // }
     }
 
     //checkCollision(player, obstacle)
@@ -215,8 +216,8 @@ class Play extends Phaser.Scene {
     checkCollision(player, obstacle)
     {
         //simple AABB checking
-        if(player.x<obstacle.x+obstacle.width&&
-            player.x+player.width>obstacle.x&&
+        if(player.x<obstacle.x+obstacle.width/2&&
+            player.x+player.width/2 >obstacle.x&&
             obstacle.y<player.y+20&&
             obstacle.y>player.y-20)
         {
