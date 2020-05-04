@@ -134,11 +134,11 @@ class Play extends Phaser.Scene {
         }
         
         //check key input for restart
-        if(this.gameOver&&cursors.left.JustDown)
+        if(this.gameOver&&cursors.left.isDown)
         {
-            this.scene.restart();
+            this.scene.start();
         }
-        if (this.gameOver &&cursors.right.JustDown)
+        if (this.gameOver &&cursors.right.isDown)
         {
             this.scene.start("menuScene");
         }
@@ -165,42 +165,58 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.player, this.ob1))
         {
             this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
         }
         if(this.checkCollision(this.player, this.ob2))
         {
             this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
         }
         if(this.checkCollision(this.player, this.ob3))
         {
             this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
         }
         if(this.checkCollision(this.player, this.ob4))
         {
             this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
         }
         if(this.checkCollision(this.player, this.ob5))
         {
             this.gameOver=true;
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', this.scoreConfig).setOrigin(0, 5);
         }
     }
+
+    //checkCollision(player, obstacle)
+    //{
+        //simple AABB checking
+        //if(player.x>obstacle.x+obstacle.width&&
+            //player.x+player.width<obstacle.x&&
+            //obstacle.y>player.y-player.height&&
+            //obstacle.y<player.y+player.height)
+        //{
+            //return true;
+        //}
+        //else
+        //{
+            //return false;
+        //}
+    //}
 
     checkCollision(player, obstacle)
     {
         //simple AABB checking
-        if(player.x>obstacle.x+obstacle.width&&
-            player.x+player.width<obstacle.x&&
-            obstacle.y>player.y-player.height/2&&
-            obstacle.y<player.y+player.height/2)
+        if(player.x<obstacle.x+obstacle.width&&
+            player.x+player.width>obstacle.x&&
+            obstacle.y<player.y+20&&
+            obstacle.y>player.y-20)
         {
             return true;
         }
