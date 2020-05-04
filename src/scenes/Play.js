@@ -5,13 +5,13 @@ class Play extends Phaser.Scene {
 
     preload () {
         //place holder images
-        this.load.image('rocket', './assets/rocket.png');
         this.load.spritesheet('backstage', './assets/backstage.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 11});
         this.load.spritesheet('moonwalk', './assets/moonwalk.png', {frameWidth: 300, frameHeight: 544, startFrame: 0, endFrame: 9});
         this.load.image('crowd', './assets/Crowd.png');
         this.load.image('crowd2', './assets/crowd2.png');
         this.load.image('crowd3', './assets/crowd3.png');
         this.load.image('crowd4', './assets/crowd4.png');
+        this.load.image('crowd4', './assets/spaceship.png');
     }
 
     create() {
@@ -30,7 +30,14 @@ class Play extends Phaser.Scene {
         
 
         //add player
-        this.player = new Player(this, game.config.width/2 - 8, 431, 'moonwalk').setScale(0.5, 0.5).setOrigin(0,0);
+        this.player = new Player(this, game.config.width/2 - 8, 431, 'moonwalk').setScale(0.3, 0.3).setOrigin(0,0);
+
+        //Add Obstacles
+        this.ob1=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob2=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob3=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob4=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob5=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
@@ -69,16 +76,6 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft=this.add.text(69, 54, this.player.distance, scoreConfig);
 
-        //obstacle speed
-        this.obstacleSpeed = 100;
-        this.obstacleSpeedMax = 500;
-
-        // add obstacles
-        this.obstacleGroup = this.add.group({
-            runChildUpdate: true
-        });
-        this.addObstacles();
-
         this.difficultyTimer = this.time.addEvent({
             delay: 1000,
             callback: this.increaseBump,
@@ -106,34 +103,40 @@ class Play extends Phaser.Scene {
         this.backstage2.anims.play('shuffle');
     }
 
-    
-    
-    addObstacles() {
-        let obstacle = new Obstacles(this, this.obstacleSpeed);
-        this.obstacleGroup.add(obstacle);
- 
-    }
-
     update() {
         //background scroll speed
         this.crowd4.tilePositionX -= 0.1;
-       this.crowd3.tilePositionX += 0.3;
-       this.crowd2.tilePositionX -= 0.4;
-       this.crowd1.tilePositionX += 0.5;
-       this.backstage.x += 1;
-       this.backstage2.x += 1;
-       if(this.backstage.x >= 640){
-           this.backstage.x = -640;
-       }
-       if(this.backstage2.x >= 640){
+        this.crowd3.tilePositionX += 0.3;
+        this.crowd2.tilePositionX -= 0.4;
+        this.crowd1.tilePositionX += 0.5;
+        this.backstage.x += 1;
+        this.backstage2.x += 1;
+        if(this.backstage.x >= 640){
+            this.backstage.x = -640;
+        }
+        if(this.backstage2.x >= 640){
             this.backstage2.x = -640;
-       }
+        }
         
+        //check key input for restart
+        if(this.gameOver&&cursors.left.JustDown)
+        {
+            this.scene.restart();
+        }
+        if (this.gameOver &&cursors.right.JustDown)
+        {
+            this.scene.start("menuScene");
+        }
 
         //player movement
         if(!this.gameOver)
         {
             this.player.update();
+            this.ob1.update();
+            this.ob2.update();
+            this.ob3.update();
+            this.ob4.update();
+            this.ob5.update();
             this.scoreLeft.text=this.player.distance;
         }
 
@@ -144,11 +147,35 @@ class Play extends Phaser.Scene {
         //}
 
         //check collisions
-        if(this.checkCollision(this.player, this.obstacleGroup))
+        if(this.checkCollision(this.player, this.ob1))
         {
             this.gameOver=true;
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
-            this.add.text(game.config.width/2, game.config.height/2+64, '(F)ire to Restart or <- for Menu', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+        }
+        if(this.checkCollision(this.player, this.ob2))
+        {
+            this.gameOver=true;
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+        }
+        if(this.checkCollision(this.player, this.ob3))
+        {
+            this.gameOver=true;
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+        }
+        if(this.checkCollision(this.player, this.ob4))
+        {
+            this.gameOver=true;
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
+        }
+        if(this.checkCollision(this.player, this.ob5))
+        {
+            this.gameOver=true;
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '<- to Restart or -> for Menu', scoreConfig).setOrigin(0, 5);
         }
     }
 
@@ -156,7 +183,9 @@ class Play extends Phaser.Scene {
     {
         //simple AABB checking
         if(player.x>obstacle.x+obstacle.width&&
-            player.x+player.width<obstacle.x)
+            player.x+player.width<obstacle.x&&
+            obstacle.y>player.y-player.height/2&&
+            obstacle.y<player.y+player.height/2)
         {
             return true;
         }
