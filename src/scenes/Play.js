@@ -6,16 +6,31 @@ class Play extends Phaser.Scene {
     preload () {
         //place holder images
         this.load.image('rocket', './assets/rocket.png');
-        this.load.image('starfield', './assets/starfield.png');
-        this.load.image('spaceship', './assets/spaceship.png');
+        this.load.spritesheet('backstage', './assets/backstage.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 11});
+        this.load.spritesheet('moonwalk', './assets/moonwalk.png', {frameWidth: 300, frameHeight: 544, startFrame: 0, endFrame: 9});
+        this.load.image('crowd', './assets/Crowd.png');
+        this.load.image('crowd2', './assets/crowd2.png');
+        this.load.image('crowd3', './assets/crowd3.png');
+        this.load.image('crowd4', './assets/crowd4.png');
     }
 
     create() {
+
+        //speed of game variable
+        let shield = 1;
+        //const backstage = this.add.sprite(0, 0, 'backstage', 0).setOrigin(0, 0);
         //background tile sprite
-        this.starfield = this.add.tileSprite(0, 0, 640, 480,'starfield').setOrigin(0, 0);
+        this.crowd4 = this.add.tileSprite(0, 0, 640, 480, 'crowd4').setOrigin(0, 0);
+        this.crowd3 = this.add.tileSprite(0, 0, 640, 480, 'crowd3').setOrigin(0, 0);
+        this.crowd2 = this.add.tileSprite(0, 0, 640, 480, 'crowd2').setOrigin(0, 0);
+        this.crowd1 = this.add.tileSprite(0, 0, 640, 480, 'crowd').setOrigin(0, 0);
+        
+        this.backstage = this.add.sprite(0, 0, 640, 480,'backstage').setOrigin(0, 0);
+        this.backstage2 = this.add.sprite(-640, 0, 640, 480,'backstage').setOrigin(0, 0);
+        
 
         //add player
-        this.player = new Player(this, game.config.width/2 - 8, 431, 'rocket').setScale(0.5, 0.5).setOrigin(0,0);
+        this.player = new Player(this, game.config.width/2 - 8, 431, 'moonwalk').setScale(0.5, 0.5).setOrigin(0,0);
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
@@ -36,7 +51,28 @@ class Play extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
+
+        this.anims.create({
+            key: 'shuffle',
+            frames: this.anims.generateFrameNumbers('backstage', {start: 0, end: 11, first: 0}),
+            frameRate: 12,
+            repeat: -1,
+        }); 
+
+        this.anims.create({
+            key: 'moonwalk',
+            frames: this.anims.generateFrameNumbers('moonwalk', {start: 0, end: 9, first: 0}),
+            frameRate: 15,
+            repeat: -1,
+        }); 
+
+
+        this.player.anims.play('moonwalk');
+        this.backstage.anims.play('shuffle');
+        this.backstage2.anims.play('shuffle');
     }
+
+    
     
         addObstacles() {
             let obstacle = new Obstacles(this, this.obstacleSpeed);
@@ -46,8 +82,19 @@ class Play extends Phaser.Scene {
 
     update() {
         //background scroll speed
-        this.starfield.tilePositionX -= 1;
-        this.starfield.tilePositionY -= 2;
+        this.crowd4.tilePositionX -= 0.1;
+       this.crowd3.tilePositionX += 0.3;
+       this.crowd2.tilePositionX -= 0.4;
+       this.crowd1.tilePositionX += 0.5;
+       this.backstage.x += 1;
+       this.backstage2.x += 1;
+       if(this.backstage.x >= 640){
+           this.backstage.x = -640;
+       }
+       if(this.backstage2.x >= 640){
+            this.backstage2.x = -640;
+       }
+        
 
         //player movement
        this.player.update();
