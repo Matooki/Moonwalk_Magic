@@ -37,7 +37,7 @@ class Menu extends Phaser.Scene {
         this.add.text(centerX, centerY + 2 * textSpacer, 'Avoid Copyright Strikes!', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + 3 * textSpacer, 'Press Down Arrow to Start', menuConfig).setOrigin(0.5);
 
-        this.sound.play('billie_jean');
+        //this.sound.play('billie_jean');
         cursors = this.input.keyboard.createCursorKeys();
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Down);
 
@@ -52,12 +52,6 @@ class Menu extends Phaser.Scene {
     }
 
    update() {
-    
-    
-    
-   
-
-   
         if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
             this.scene.start('playScene');
         }

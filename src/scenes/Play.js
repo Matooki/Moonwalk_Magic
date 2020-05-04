@@ -32,7 +32,7 @@ class Play extends Phaser.Scene {
         }
 
         //Declaring the music. Place in create function
-        var music=this.sound.add('song', songconfig);
+        var music=this.sound.add('billie_jean', songconfig);
         this.musicPlay=false;
 
         this.gameOver=false;
@@ -72,9 +72,9 @@ class Play extends Phaser.Scene {
         });
     }
     
-        addObstacles() {
-            let obstacle = new Obstacles(this, this.obstacleSpeed);
-            this.obstacleGroup.add(obstacle);
+    addObstacles() {
+        let obstacle = new Obstacles(this, this.obstacleSpeed);
+        this.obstacleGroup.add(obstacle);
  
     }
 
@@ -84,7 +84,11 @@ class Play extends Phaser.Scene {
         this.starfield.tilePositionY -= 2;
 
         //player movement
-        this.player.update();
+        if(!this.gameOver)
+        {
+            this.player.update();
+            this.scoreLeft.text=this.player.distance;
+        }
 
         //if(!this.musicPlay&&!this.gameOver)
         //{
@@ -92,7 +96,27 @@ class Play extends Phaser.Scene {
             //this.musicPlay=true;
         //}
 
-        this.scoreLeft.text=this.player.distance;
+        //check collisions
+        if(this.checkCollision(this.player, this.obstacleGroup))
+        {
+            this.gameOver=true;
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0, 5);
+            this.add.text(game.config.width/2, game.config.height/2+64, '(F)ire to Restart or <- for Menu', scoreConfig).setOrigin(0, 5);
+        }
+    }
+
+    checkCollision(player, obstacle)
+    {
+        //simple AABB checking
+        if(player.x>obstacle.x+obstacle.width&&
+            player.x+player.width<obstacle.x)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
