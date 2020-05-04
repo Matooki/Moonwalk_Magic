@@ -86,6 +86,8 @@ class Play extends Phaser.Scene {
             loop: true
         });
 
+
+        //Create anims for floor and player
         this.anims.create({
             key: 'shuffle',
             frames: this.anims.generateFrameNumbers('backstage', {start: 0, end: 11, first: 0}),
@@ -100,7 +102,7 @@ class Play extends Phaser.Scene {
             repeat: -1,
         }); 
 
-
+        //play those anims
         this.player.anims.play('moonwalk');
         this.backstage.anims.play('shuffle');
         this.backstage2.anims.play('shuffle');
