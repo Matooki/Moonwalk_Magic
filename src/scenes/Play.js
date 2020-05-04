@@ -34,10 +34,10 @@ class Play extends Phaser.Scene {
 
         //Add Obstacles
         this.ob1=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob2=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob3=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob4=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
-        this.ob5=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob2=new Obstacles(this, 0-128, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob3=new Obstacles(this, 0-256, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob4=new Obstacles(this, 0-384, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
+        this.ob5=new Obstacles(this, 0-512, Phaser.Math.Between(0, game.config.height), 'spaceship', 0).setOrigin(0,0);
 
         // movement
         cursors = this.input.keyboard.createCursorKeys();
@@ -186,8 +186,8 @@ class Play extends Phaser.Scene {
         //simple AABB checking
         if(player.x>obstacle.x+obstacle.width&&
             player.x+player.width<obstacle.x&&
-            obstacle.y>player.y-player.height/2&&
-            obstacle.y<player.y+player.height/2)
+            obstacle.y>player.y-player.height&&
+            obstacle.y<player.y+player.height)
         {
             return true;
         }

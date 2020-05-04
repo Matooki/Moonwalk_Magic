@@ -11,21 +11,21 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
     
     update() {
-    ++this.distance
+        ++this.distance
     
-    //movement
-    if(!this.copyright && cursors.up.isDown) {
-       this.y-=2;
-    }
-    else if(!this.copyright && cursors.down.isDown) {
-        this.y+=2;
-    }
-    else if(!this.copyright && cursors.left.isDown) {
-        this.x-=2;
-    }
-    else if(!this.copyright && cursors.right.isDown) {
-        this.x+=2;
-    }
+        //movement
+        if(!this.copyright && cursors.up.isDown) {
+           this.y-=2;
+        }
+        else if(!this.copyright && cursors.down.isDown) {
+            this.y+=2;
+        }
+        else if(!this.copyright && cursors.left.isDown) {
+            this.x-=2;
+        }
+            else if(!this.copyright && cursors.right.isDown) {
+            this.x+=2;
+        }
 
     }
 }
