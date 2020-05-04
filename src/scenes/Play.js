@@ -5,15 +5,13 @@ class Play extends Phaser.Scene {
 
     preload () {
         //place holder images
-        //this.load.spritesheet('copyright', './assets/copyright.png', {frameWidth: 147, frameHeight: 110, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('copyright', './assets/copyright.png', {frameWidth: 147, frameHeight: 110, startFrame: 0, endFrame: 7});
         this.load.spritesheet('backstage', './assets/backstage.png', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 11});
         this.load.spritesheet('moonwalk', './assets/moonwalk.png', {frameWidth: 300, frameHeight: 544, startFrame: 0, endFrame: 9});
         this.load.image('crowd', './assets/Crowd.png');
         this.load.image('crowd2', './assets/crowd2.png');
         this.load.image('crowd3', './assets/crowd3.png');
         this.load.image('crowd4', './assets/crowd4.png');
-        this.load.image('crowd4', './assets/spaceship.png');
-        this.load.image('copy', './assets/copy.png');
     }
 
     create() {
@@ -36,11 +34,11 @@ class Play extends Phaser.Scene {
         this.player = new Player(this, game.config.width/2 - 8, 431, 'moonwalk').setScale(0.3, 0.3).setOrigin(0,0);
 
         //Add Obstacles
-        this.ob1=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'copy', 0).setScale(3, 3).setOrigin(0,0);
-        this.ob2=new Obstacles(this, -128, Phaser.Math.Between(0, game.config.height), 'copy', 0).setScale(3, 3).setOrigin(0,0);
-        this.ob3=new Obstacles(this, -256, Phaser.Math.Between(0, game.config.height), 'copy', 0).setScale(3, 3).setOrigin(0,0);
-        this.ob4=new Obstacles(this, -384, Phaser.Math.Between(0, game.config.height), 'copy', 0).setScale(3, 3).setOrigin(0,0);
-        this.ob5=new Obstacles(this, -512, Phaser.Math.Between(0, game.config.height), 'copy', 0).setScale(3, 3).setOrigin(0,0);
+        this.ob1=new Obstacles(this, 0, Phaser.Math.Between(0, game.config.height), 'copyright', 0).setOrigin(0,0);
+        this.ob2=new Obstacles(this, -128, Phaser.Math.Between(0, game.config.height), 'copyright', 0).setOrigin(0,0);
+        this.ob3=new Obstacles(this, -256, Phaser.Math.Between(0, game.config.height), 'copyright', 0).setOrigin(0,0);
+        this.ob4=new Obstacles(this, -384, Phaser.Math.Between(0, game.config.height), 'copyright', 0).setOrigin(0,0);
+        this.ob5=new Obstacles(this, -512, Phaser.Math.Between(0, game.config.height), 'copyright', 0).setOrigin(0,0);
 1
         // movement
         cursors = this.input.keyboard.createCursorKeys();
@@ -87,19 +85,19 @@ class Play extends Phaser.Scene {
             repeat: -1,
         }); 
 
-        //this.anims.create({
-            //key: 'copyright',
-            //frames: this.anims.generateFrameNumbers('copyright', {start: 0, end: 7, first: 0}),
-            //frameRate: 15,
-            //repeat: -1,
-        //}); 
+        this.anims.create({
+            key: 'copyright',
+            frames: this.anims.generateFrameNumbers('copyright', {start: 0, end: 7, first: 0}),
+            frameRate: 15,
+            repeat: -1,
+        }); 
 
         //play those anims
-        //this.ob1.anims.play('copyright');
-        //this.ob2.anims.play('copyright');
-        //this.ob3.anims.play('copyright');
-        //this.ob4.anims.play('copyright');
-        //this.ob5.anims.play('copyright');
+        this.ob1.anims.play('copyright');
+        this.ob2.anims.play('copyright');
+        this.ob3.anims.play('copyright');
+        this.ob4.anims.play('copyright');
+        this.ob5.anims.play('copyright');
         this.player.anims.play('moonwalk');
         this.backstage.anims.play('shuffle');
         this.backstage2.anims.play('shuffle');
